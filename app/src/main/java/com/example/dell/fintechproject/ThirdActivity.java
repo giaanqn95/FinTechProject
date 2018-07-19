@@ -1,28 +1,26 @@
 package com.example.dell.fintechproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.example.dell.fintechproject.AppConstants.FOUR;
+import static com.example.dell.fintechproject.AppConstants.SECOND;
 import static com.example.dell.fintechproject.AppConstants.THIRD;
-import static com.example.dell.fintechproject.MainActivity.activityList;
 import static com.example.dell.fintechproject.MainActivity.jsonObjectSecond;
+import static com.example.dell.fintechproject.MainActivity.saveActivity;
 import static com.example.dell.fintechproject.MainActivity.saveActivityList;
 
 public class ThirdActivity extends BaseActivity {
 
     EditText mEditText, mEditText2;
     String test1, test2;
-    TextView mTextView1, mTextView2;
-    JSONObject jsonObjectData = null, jsonObjectThird;
+    JSONObject jsonObjectData = null, jsonObject = null;
     Button mButton;
 
     @Override
@@ -53,45 +51,32 @@ public class ThirdActivity extends BaseActivity {
             e.printStackTrace();
         }
         MainActivity.getInstance().runActivity(this, FOUR);
+        saveActivity.put(THIRD, jsonObjectData);
         saveActivityList.add(jsonObjectData);
         Log.d("AAAAA", String.valueOf(jsonObjectSecond + "\n" + jsonObjectData));
-
     }
-
-//    @Override
-//    protected void initView() {
-//
-//    }
-//
-//    @Override
-//    protected void onClick() {
-//
-//    }
-
-
-//    @Override
-//    public void runActivity(Context mContext, int id) {
-//
-//    }
-//
-//    @Override
-//    public void addView() {
-//
-//    }
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-        if (saveActivityList.size() > 1) {
-            int id = 0;
-            try {
-                id = Integer.parseInt(saveActivityList.get(saveActivityList.size() - 2).getString("activity"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            saveActivityList.remove(saveActivityList.get(saveActivityList.size() - 1));
-            MainActivity.getInstance().runActivity(this, id);
-//            finish();
+//        if (saveActivityList.size() > 1) {
+//            int id = 0;
+//            try {
+//                id = Integer.parseInt(saveActivityList.get(saveActivityList.size() - 2).getString("activity"));
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            MainActivity.getInstance().runActivity(this, id);
+//        }
+        jsonObject = new JSONObject();
+        jsonObject = saveActivity.get(SECOND);
+        int id = 0;
+        try {
+            id = Integer.parseInt(jsonObject.getString("activity"));
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        MainActivity.getInstance().runActivity(this, id);
+        saveActivityList.remove(saveActivityList.get(saveActivityList.size() - 1));
     }
 }

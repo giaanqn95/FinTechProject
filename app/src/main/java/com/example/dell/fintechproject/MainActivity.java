@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
     static JSONObject jsonObjectSecond = null;
     private Handler handler;
     private int min = 1, max= 3;
+    private int i = 0;
     Random random = new Random();
     int randomNum;
 
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
         instance = this;
         handler = new Handler();
         addView();
-        run();
+//        run();
         runActivity(this, SECOND);
         saveHistory(SECOND);
 
@@ -74,9 +75,9 @@ public class MainActivity extends BaseActivity {
     public void run() {
         randomNum = random.nextInt((max - min) + 1) + min;
         new Thread(() -> {
-            while (min < 21321) {
+            while (i < 3) {
                 handler.post(() -> {
-                    min += 1;
+                    i += 1;
                     random.nextBoolean();
                     randomNum = random.nextInt((max - min) + 1) + min;
                     Log.d("AAAAA", String.valueOf(randomNum));

@@ -3,9 +3,9 @@ package com.example.dell.fintechproject;
 
 public enum NameClass {
 
-    SECOND(0, SecondActivity.class),
-    THIRD(1, ThirdActivity.class),
-    FOUR(2, FourActivity.class);
+    SECOND(1, SecondActivity.class),
+    THIRD(2, ThirdActivity.class),
+    FOUR(3, FourActivity.class);
 
 
     private int key;
