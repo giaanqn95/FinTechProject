@@ -34,8 +34,8 @@ public class ThirdActivity extends BaseActivity {
         try {
             mEditText.setText(saveActivityList.get(saveActivityList.size() - 1).getString("test1"));
             mEditText2.setText(saveActivityList.get(saveActivityList.size() - 1).getString("test2"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.d( "AAAAA", e.getMessage());
         }
     }
 
@@ -68,15 +68,17 @@ public class ThirdActivity extends BaseActivity {
 //            }
 //            MainActivity.getInstance().runActivity(this, id);
 //        }
+        try {
         jsonObject = new JSONObject();
         jsonObject = saveActivity.get(SECOND);
         int id = 0;
-        try {
+
             id = Integer.parseInt(jsonObject.getString("activity"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
         MainActivity.getInstance().runActivity(this, id);
         saveActivityList.remove(saveActivityList.get(saveActivityList.size() - 1));
+        } catch (Exception e) {
+            Log.d( "AAAAA", e.getMessage());
+        }
     }
 }
