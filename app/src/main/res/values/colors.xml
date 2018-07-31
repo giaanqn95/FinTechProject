@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="transparent_black_70">#4D000000</color>
     <color name="colorBlack">#000</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#FFFF</color>
     <color name="background_gray">#EEEEEE</color>
     <color name="text_color_primary">#4A4A4A</color>
     <color name="text_color_secondary">#9B9B9B</color>
@@ -23,6 +23,8 @@
     <color name="color_title_caddy">#B1B1B1</color>
     <color name="color_text_profile">#333333</color>
     <color name="color_line_view">#C0C0C0</color>
+    <color name="trans_grey">#F2d7d7d7</color>
+
 
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>

@@ -1,11 +1,17 @@
 package com.example.dell.fintechproject;
 
 
+import com.example.dell.fintechproject.module.view.currency.CurrencyActivity;
+import com.example.dell.fintechproject.module.view.maps.MapsActivity;
+import com.example.dell.fintechproject.module.view.news_home.HomeNews;
+import com.example.dell.fintechproject.module.view.exchange.ExchangeActivity;
+
 public enum NameClass {
 
-    SECOND(1, SecondActivity.class),
-    THIRD(2, ThirdActivity.class),
-    FOUR(3, FourActivity.class);
+    HOME(1, HomeNews.class),
+    EXCHANGE(2, ExchangeActivity.class),
+    CURRENCY(3, CurrencyActivity.class),
+    MAP(4, MapsActivity.class);
 
 
     private int key;
@@ -22,7 +28,7 @@ public enum NameClass {
                 return item;
             }
         }
-        return SECOND;
+        return HOME;
     }
 
     public int getKey() {

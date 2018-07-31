@@ -2,9 +2,13 @@ package com.example.dell.fintechproject;
 
 public class AppConstants {
 
-    public static final int SECOND = 1;
+    public static final String URL_CURRENT= "https://dbs-api-dev.intelin.vn";
 
-    public static final int THIRD = 2;
+    public static final int HOME = 1;
 
-    public static final int FOUR = 3;
+    public static final int EXCHANGE = 2;
+
+    public static final int CURRENCY = 3;
+
+    public static final int MAP = 4;
 }

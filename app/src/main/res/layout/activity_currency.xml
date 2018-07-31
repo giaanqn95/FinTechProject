@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_home4">
+
+    <ImageView
+        android:id="@+id/tb_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:src="@drawable/round_keyboard_arrow_left_white_24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:gravity="center"
+        android:text="NGOẠI TỆ"
+        android:textColor="@color/white"
+        android:textSize="@dimen/margin_padding_18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/currency_iv_exchange"
+        android:layout_width="@dimen/margin_padding_50dp"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:paddingBottom="@dimen/margin_padding_10dp"
+        android:paddingEnd="@dimen/margin_padding_05dp"
+        android:paddingStart="@dimen/margin_padding_05dp"
+        android:paddingTop="@dimen/margin_padding_10dp"
+        android:src="@drawable/ic_calculator_2x"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/cureency_tv_ngoai_te"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:text="Ngoại tệ"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/cureency_tv_ban"
+        app:layout_constraintTop_toBottomOf="@+id/currency_iv_exchange"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/cureency_tv_ban"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:text="Bán"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/cureency_tv_mua"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cureency_tv_ngoai_te"
+        app:layout_constraintTop_toBottomOf="@+id/currency_iv_exchange"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/cureency_tv_mua"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:text="Mua"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cureency_tv_ban"
+        app:layout_constraintTop_toBottomOf="@+id/currency_iv_exchange"
+        android:gravity="center"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_padding_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cureency_tv_ngoai_te"
+        android:id="@+id/rv_currency">
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>

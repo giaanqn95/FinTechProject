@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_padding_10dp"
+    android:paddingRight="@dimen/margin_padding_10dp"
+    android:id="@+id/item_cl_choose_country">
+
+    <ImageView
+        android:id="@+id/item_iv_choose_country"
+        android:layout_width="@dimen/margin_padding_50dp"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:padding="@dimen/margin_padding_10dp" />
+
+    <TextView
+        android:id="@+id/item_tv_choose_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/item_choose_iv_check"
+        app:layout_constraintStart_toEndOf="@id/item_iv_choose_country" />
+
+    <TextView
+        android:id="@+id/item_tv_choose_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/item_choose_iv_check"
+        app:layout_constraintStart_toEndOf="@id/item_iv_choose_country"
+        app:layout_constraintTop_toBottomOf="@id/item_tv_choose_name" />
+
+    <ImageView
+        android:id="@+id/item_choose_iv_check"
+        android:layout_width="@dimen/margin_padding_20dp"
+        android:layout_height="@dimen/margin_padding_20dp"
+        android:src="@drawable/ic_check_inactive_2x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
