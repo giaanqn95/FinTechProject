@@ -6,12 +6,40 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_home4">
 
+    <ImageView
+        android:id="@+id/tb_exchange"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:src="@drawable/round_keyboard_arrow_left_white_24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:gravity="center"
+        android:text="TỈ GIÁ"
+        android:textColor="@color/white"
+        android:textSize="@dimen/margin_padding_18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/exchange_iv_setting"
+        android:layout_width="@dimen/margin_padding_50dp"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:paddingBottom="@dimen/margin_padding_10dp"
+        android:paddingEnd="@dimen/margin_padding_05dp"
+        android:paddingStart="@dimen/margin_padding_05dp"
+        android:paddingTop="@dimen/margin_padding_10dp"
+        android:src="@drawable/ic_calculator_2x"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_exchange"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/et_money_exchange"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/exchange_iv_setting">
 
     </android.support.v7.widget.RecyclerView>
 

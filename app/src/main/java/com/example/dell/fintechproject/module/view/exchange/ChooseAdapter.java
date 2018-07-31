@@ -104,9 +104,5 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.MyViewHold
 
     public interface OnCheckBoxListener {
         void onItemAddClickListener(int position);
-
-        void onItemRemoveClickListener(int position);
-
-
     }
 }

@@ -162,6 +162,9 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() < 1) {
                     mImageViewClear.setVisibility(View.GONE);
+                    mExchangeAdapter = new ExchangeAdapter(ExchangeActivity.this, mListRates, mListRate, 0, oldPosition);
+                    mRecyclerViewExChange.setAdapter(mExchangeAdapter);
+                    mExchangeAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -216,11 +219,6 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
                 mTextViewChoose.setText(mListRates.get(position).getCurrencyCode());
                 mRecyclerViewChooseCountry.setVisibility(View.INVISIBLE);
                 mConstraintLayoutKeyBroad.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onItemRemoveClickListener(int position) {
-
             }
         });
     }

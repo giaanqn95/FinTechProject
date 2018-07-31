@@ -64,7 +64,10 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.MyView
         Picasso.get().load(icon).into(holder.mImageView);
         holder.mTextViewCountry.setText(listRate.getCurrencyCode());
         if (moneyEnter == 0) {
-            holder.mTextViewMoney.setText("");
+            holder.mTextViewMoney.setText("0");
+        }
+        if (listRate.getBuy().equals("0")) {
+            holder.mTextViewMoney.setText("0");
         }
         if (moneyEnter != 0) {
             try {
@@ -76,13 +79,15 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.MyView
                         holder.mTextViewMoney.setText(String.format(Locale.US, "%.12f", money));
                     }
                 } else {
-                    double abc = moneyEnter * Double.parseDouble(myListRate.get(myPosition).getBuy()) / Double.parseDouble(listRate.getBuy());
-                    System.out.printf("%.9f", abc);
-                    System.out.println();
-                    if (abc <= 999999999.0) {
-                        holder.mTextViewMoney.setText(formatString(abc));
-                    } else {
-                        holder.mTextViewMoney.setText(String.format(Locale.US, "%6.3e", Double.parseDouble(myListRate.get(myPosition).getBuy()) / Double.parseDouble(listRate.getBuy())));
+                    if (!listRate.getBuy().equals("0")) {
+                        double abc = moneyEnter * Double.parseDouble(myListRate.get(myPosition).getBuy()) / Double.parseDouble(listRate.getBuy());
+                        System.out.printf("%.9f", abc);
+                        System.out.println();
+                        if (abc <= 999999999.0) {
+                            holder.mTextViewMoney.setText(formatString(abc));
+                        } else {
+                            holder.mTextViewMoney.setText(String.format(Locale.US, "%6.3e", Double.parseDouble(myListRate.get(myPosition).getBuy()) / Double.parseDouble(listRate.getBuy())));
+                        }
                     }
                 }
             } catch (Exception e) {
