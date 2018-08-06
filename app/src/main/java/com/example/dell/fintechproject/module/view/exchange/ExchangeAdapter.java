@@ -81,8 +81,6 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.MyView
                 } else {
                     if (!listRate.getBuy().equals("0")) {
                         double abc = moneyEnter * Double.parseDouble(myListRate.get(myPosition).getBuy()) / Double.parseDouble(listRate.getBuy());
-                        System.out.printf("%.9f", abc);
-                        System.out.println();
                         if (abc <= 999999999.0) {
                             holder.mTextViewMoney.setText(formatString(abc));
                         } else {

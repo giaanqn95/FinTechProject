@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_home4">
+
+    <ImageView
+        android:id="@+id/tb_choose"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:src="@drawable/round_keyboard_arrow_left_white_24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:gravity="center"
+        android:text="CÀI ĐẶT"
+        android:textColor="@color/white"
+        android:textSize="@dimen/margin_padding_18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/exchange_iv_setting"
+        android:layout_width="@dimen/margin_padding_50dp"
+        android:layout_height="@dimen/margin_padding_50dp"
+        android:paddingBottom="@dimen/margin_padding_10dp"
+        android:paddingEnd="@dimen/margin_padding_05dp"
+        android:paddingStart="@dimen/margin_padding_05dp"
+        android:paddingTop="@dimen/margin_padding_10dp"
+        android:src="@drawable/ic_setting_2x"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_choose_favorite"
+        app:layout_constraintTop_toBottomOf="@id/tb_choose"
+        android:text="YÊU THÍCH (0/4)"
+        android:paddingLeft="@dimen/margin_padding_10dp"
+        android:paddingRight="@dimen/margin_padding_10dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/margin_padding_10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_view_line"
+        app:layout_constraintTop_toBottomOf="@+id/tv_choose_favorite"
+        android:layout_marginLeft="@dimen/margin_padding_10dp"
+        android:layout_marginRight="@dimen/margin_padding_10dp"
+        android:layout_marginTop="@dimen/margin_padding_05dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_choose"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_choose_favorite"
+        android:paddingLeft="@dimen/margin_padding_10dp"
+        android:paddingRight="@dimen/margin_padding_10dp"
+        android:paddingTop="@dimen/margin_padding_10dp"
+        android:layout_marginTop="@dimen/margin_padding_10dp">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</android.support.constraint.ConstraintLayout>

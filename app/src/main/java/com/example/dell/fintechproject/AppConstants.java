@@ -11,4 +11,6 @@ public class AppConstants {
     public static final int CURRENCY = 3;
 
     public static final int MAP = 4;
+
+    public static final int CHOOSE = 5;
 }

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.dell.fintechproject.NameClass;
 import com.example.dell.fintechproject.R;
+import com.example.dell.fintechproject.model.ListRate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,12 +22,11 @@ import java.util.Random;
 import static com.example.dell.fintechproject.AppConstants.HOME;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static List<ListRate> myListRateSelect = new ArrayList<>();
     private static MainActivity instance;
     static HashMap<Integer, Class> activityList = new HashMap<>();
-    public static HashMap<Integer, JSONObject> saveActivity = new HashMap<>();
     public static List<JSONObject> saveActivityList = new ArrayList<>();
-    public static Boolean open;
+    public static Boolean open = Boolean.TRUE;
     public Class idActivity;
     static JSONObject jsonObjectSecond = null;
     private Handler handler;
@@ -47,10 +47,8 @@ public class MainActivity extends AppCompatActivity {
         instance = this;
         handler = new Handler();
         addView();
-//        run();
         runActivity(this, HOME, true);
         saveHistory(HOME);
-
     }
 
 
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         open = boo;
         finish();
-        Log.d("TAG123", String.valueOf(saveActivityList.size()));
     }
 
     public void saveHistory(int id) {
@@ -71,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         saveActivityList.add(jsonObjectSecond);
-//        saveActivity.put(id, jsonObjectSecond);
-        Log.d("TAG123", String.valueOf(saveActivityList.size()));
     }
 
     public void addView() {

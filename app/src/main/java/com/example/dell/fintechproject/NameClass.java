@@ -1,6 +1,7 @@
 package com.example.dell.fintechproject;
 
 
+import com.example.dell.fintechproject.module.view.choose_country.ChooseCountryActivity;
 import com.example.dell.fintechproject.module.view.currency.CurrencyActivity;
 import com.example.dell.fintechproject.module.view.maps.MapsActivity;
 import com.example.dell.fintechproject.module.view.news_home.HomeNews;
@@ -11,7 +12,8 @@ public enum NameClass {
     HOME(1, HomeNews.class),
     EXCHANGE(2, ExchangeActivity.class),
     CURRENCY(3, CurrencyActivity.class),
-    MAP(4, MapsActivity.class);
+    MAP(4, MapsActivity.class),
+    CHOOSE(5, ChooseCountryActivity.class);
 
 
     private int key;

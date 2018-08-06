@@ -9,9 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +18,11 @@ import com.example.dell.fintechproject.R;
 import com.example.dell.fintechproject.model.ListRate;
 import com.example.dell.fintechproject.module.base_activity.BaseActivity;
 import com.example.dell.fintechproject.module.view.MainActivity;
-import com.example.dell.fintechproject.module.view.currency.CurrencyGeneral;
-import com.example.dell.fintechproject.module.view.currency.CurrencyPresenterImpl;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,26 +30,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.example.dell.fintechproject.AppConstants.CHOOSE;
 import static com.example.dell.fintechproject.AppConstants.EXCHANGE;
+import static com.example.dell.fintechproject.module.view.MainActivity.myListRateSelect;
 import static com.example.dell.fintechproject.module.view.MainActivity.open;
-import static com.example.dell.fintechproject.module.view.MainActivity.saveActivity;
 import static com.example.dell.fintechproject.module.view.MainActivity.saveActivityList;
 
-public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.CurrencyView {
+public class ExchangeActivity extends BaseActivity {
 
     EditText mEditText;
-    String test1, test2;
-    JSONObject jsonObjectExchange = null, jsonObject = null;
-    Button mButton;
-    FrameLayout keyboardLayout;
+    JSONObject jsonObjectExchange = null;
     TextView mTextView1, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7, mTextView8, mTextView9, mTextView0, mTextView000;
     ImageView mImageViewDeleted, mImageViewClear;
-    ConstraintLayout mConstraintLayoutCountry;
     RecyclerView mRecyclerViewExChange, mRecyclerViewChooseCountry;
     ExchangeAdapter mExchangeAdapter;
     ChooseAdapter mChooseAdapter;
     List<ListRate> mListRates = new ArrayList<>();
-    CurrencyPresenterImpl mCurrencyPresenter;
     ConstraintLayout mConstraintLayoutChoose, mConstraintLayoutKeyBroad;
     List<ListRate> mListRate = new ArrayList<>();
     ImageView mImageViewChoose;
@@ -58,25 +53,37 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
     int oldPosition = 0;
     Double myMoney;
     HashMap<String, Integer> currencyIconList = new HashMap<String, Integer>();
+    ImageView mImageViewBack, mImageViewSetting;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange);
+        EventBus.getDefault().register(this);
         if (open) {
             save();
         }
-        initPresenter();
-        init();
-        initKeyBroad();
+        initKeyBroadAndView();
+        clickView();
         clickKeyBroad();
         clickAdapter();
     }
 
-    public void initPresenter() {
-        mCurrencyPresenter = new CurrencyPresenterImpl(this);
-        mCurrencyPresenter.getCurrency();
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onEvent(List<ListRate> rates) {
+        ListRate listRate = new ListRate("VNA", "VIETNAM DONG", "100000", "169374.07", "17119.12");
+        mListRate.add(0, listRate);
+//        mListRates.addAll(myListRateSelect);
+        mListRate.addAll(rates);
+
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 
     public void save() {
         jsonObjectExchange = new JSONObject();
@@ -85,11 +92,12 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        saveActivity.put(EXCHANGE, jsonObjectExchange);
         saveActivityList.add(jsonObjectExchange);
     }
 
-    public void initKeyBroad() {
+    public void initKeyBroadAndView() {
+        mConstraintLayoutChoose = (ConstraintLayout) findViewById(R.id.cl_country);
+        mConstraintLayoutKeyBroad = (ConstraintLayout) findViewById(R.id.cl_keybroad);
         mTextViewChoose = (TextView) findViewById(R.id.tv_choose_country);
         mImageViewChoose = (ImageView) findViewById(R.id.iv_choose_country);
         mEditText = (EditText) findViewById(R.id.et_money_exchange);
@@ -106,17 +114,22 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
         mTextView000 = (TextView) findViewById(R.id.tv_number_000);
         mImageViewDeleted = (ImageView) findViewById(R.id.iv_delete);
         mImageViewClear = (ImageView) findViewById(R.id.iv_clear);
+        mImageViewBack = (ImageView) findViewById(R.id.tb_exchange);
+        mImageViewSetting = (ImageView) findViewById(R.id.exchange_iv_setting);
         mEditText.setFocusable(true);
 //        mEditText.addTextChangedListener(new NumberTextWatcher(mEditText));
         mRecyclerViewExChange = (RecyclerView) findViewById(R.id.rv_exchange);
         mRecyclerViewChooseCountry = (RecyclerView) findViewById(R.id.rv_choose_country);
         Double test = Double.valueOf(0);
-        mExchangeAdapter = new ExchangeAdapter(this, mListRates, mListRate, test, oldPosition);
-        mChooseAdapter = new ChooseAdapter(this, mListRates);
+
+        mExchangeAdapter = new ExchangeAdapter(this, myListRateSelect, mListRate, test, oldPosition);
+        mChooseAdapter = new ChooseAdapter(this, mListRate);
         mRecyclerViewExChange.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewExChange.setAdapter(mExchangeAdapter);
         mRecyclerViewChooseCountry.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewChooseCountry.setAdapter(mChooseAdapter);
+        mExchangeAdapter.notifyDataSetChanged();
+        mChooseAdapter.notifyDataSetChanged();
     }
 
     public void clickKeyBroad() {
@@ -162,7 +175,7 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() < 1) {
                     mImageViewClear.setVisibility(View.GONE);
-                    mExchangeAdapter = new ExchangeAdapter(ExchangeActivity.this, mListRates, mListRate, 0, oldPosition);
+                    mExchangeAdapter = new ExchangeAdapter(ExchangeActivity.this, myListRateSelect, mListRate, 0, oldPosition);
                     mRecyclerViewExChange.setAdapter(mExchangeAdapter);
                     mExchangeAdapter.notifyDataSetChanged();
                 }
@@ -173,7 +186,7 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
                 if (editable.equals("0") || editable.equals("")) {
                     mImageViewClear.setVisibility(View.GONE);
                     myMoney = Double.valueOf(0);
-                    mExchangeAdapter = new ExchangeAdapter(ExchangeActivity.this, mListRates, mListRate, myMoney, oldPosition);
+                    mExchangeAdapter = new ExchangeAdapter(ExchangeActivity.this, myListRateSelect, mListRate, myMoney, oldPosition);
                     mRecyclerViewExChange.setAdapter(mExchangeAdapter);
                     mExchangeAdapter.notifyDataSetChanged();
                 } else {
@@ -181,7 +194,7 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
                         String money = mEditText.getText().toString();
                         money.replace(".", "");
                         myMoney = Double.parseDouble(money);
-                        mExchangeAdapter = new ExchangeAdapter(ExchangeActivity.this, mListRates, mListRate, myMoney, oldPosition);
+                        mExchangeAdapter = new ExchangeAdapter(ExchangeActivity.this, myListRateSelect, mListRate, myMoney, oldPosition);
                         mRecyclerViewExChange.setAdapter(mExchangeAdapter);
                         mExchangeAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
@@ -193,37 +206,35 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
         });
     }
 
-    public void init() {
-        mConstraintLayoutChoose = (ConstraintLayout) findViewById(R.id.cl_country);
-        mConstraintLayoutKeyBroad = (ConstraintLayout) findViewById(R.id.cl_keybroad);
+    public void clickView() {
         mConstraintLayoutChoose.setOnClickListener(view -> {
             mRecyclerViewChooseCountry.setVisibility(View.VISIBLE);
             mConstraintLayoutKeyBroad.setVisibility(View.INVISIBLE);
         });
+        mImageViewBack.setOnClickListener(view -> MainActivity.getInstance().backActivity(this));
+        mImageViewSetting.setOnClickListener(view ->
+                MainActivity.getInstance().runActivity(this, CHOOSE, true));
     }
 
     public void clickAdapter() {
-        mChooseAdapter.setOnCheckListener(new ChooseAdapter.OnCheckBoxListener() {
-            @Override
-            public void onItemAddClickListener(int position) {
-                mListRate.add(mListRates.get(position+1));
-                mListRate.get(oldPosition).setFavorite(false);
-                mListRate.get(position+1).setFavorite(true);
-                oldPosition = position+1;
-                mChooseAdapter.notifyDataSetChanged();
-                for (CurrencyIcon currencyIcon : CurrencyIcon.values()) {
-                    currencyIconList.put(currencyIcon.getCode(), currencyIcon.getRes());
-                }
-                int icon = currencyIconList.get(mListRate.get(position+1).getCurrencyCode());
-                Picasso.get().load(icon).into(mImageViewChoose);
-                mTextViewChoose.setText(mListRates.get(position).getCurrencyCode());
-                mRecyclerViewChooseCountry.setVisibility(View.INVISIBLE);
-                mConstraintLayoutKeyBroad.setVisibility(View.VISIBLE);
+        mChooseAdapter.setOnCheckListener(position -> {
+            mListRate.add(mListRate.get(position));
+            mListRate.get(oldPosition).setFavorite(false);
+            mListRate.get(position).setFavorite(true);
+            oldPosition = position;
+            mChooseAdapter.notifyDataSetChanged();
+            for (CurrencyIcon currencyIcon : CurrencyIcon.values()) {
+                currencyIconList.put(currencyIcon.getCode(), currencyIcon.getRes());
             }
+            int icon = currencyIconList.get(mListRate.get(position).getCurrencyCode());
+            Picasso.get().load(icon).into(mImageViewChoose);
+            mTextViewChoose.setText(mListRate.get(position).getCurrencyCode());
+            mRecyclerViewChooseCountry.setVisibility(View.INVISIBLE);
+            mConstraintLayoutKeyBroad.setVisibility(View.VISIBLE);
         });
     }
 
-//    public void init(){
+//    public void clickView(){
 //        mButton = (Button) findViewById(R.id.btn_click);
 //        mEditText = (EditText) findViewById(R.id.et_test);
 //        mEditText2 = (EditText) findViewById(R.id.et_test2);
@@ -261,15 +272,5 @@ public class ExchangeActivity extends BaseActivity implements CurrencyGeneral.Cu
 //            Log.d( "AAAAA", e.getMessage());
 //        }
         MainActivity.getInstance().backActivity(this);
-    }
-
-    @Override
-    public void getDataCurrency(List<ListRate> listRates) {
-        ListRate listRate = new ListRate("VNA", "VIETNAM DONG", "100000","169374.07", "17119.12");
-        mListRate.add(0,listRate);
-        mListRates.add(0, listRate);
-        mListRates.addAll(listRates);
-        mListRate.addAll(mListRates);
-        mExchangeAdapter.notifyDataSetChanged();
     }
 }

@@ -31,7 +31,7 @@
         android:paddingEnd="@dimen/margin_padding_05dp"
         android:paddingStart="@dimen/margin_padding_05dp"
         android:paddingTop="@dimen/margin_padding_10dp"
-        android:src="@drawable/ic_calculator_2x"
+        android:src="@drawable/ic_setting_2x"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v7.widget.RecyclerView

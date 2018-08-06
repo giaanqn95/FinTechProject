@@ -11,6 +11,7 @@ import com.example.dell.fintechproject.model.ListRate;
 import com.example.dell.fintechproject.module.base_activity.BaseActivity;
 import com.example.dell.fintechproject.module.view.MainActivity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +20,7 @@ import java.util.List;
 
 import static com.example.dell.fintechproject.AppConstants.CURRENCY;
 import static com.example.dell.fintechproject.AppConstants.EXCHANGE;
+import static com.example.dell.fintechproject.module.view.MainActivity.myListRateSelect;
 import static com.example.dell.fintechproject.module.view.MainActivity.open;
 import static com.example.dell.fintechproject.module.view.MainActivity.saveActivityList;
 
@@ -35,8 +37,8 @@ public class CurrencyActivity extends BaseActivity implements CurrencyGeneral.Cu
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
-        if (open){
-        save();
+        if (open) {
+            save();
         }
         initPresenter();
         init();
@@ -59,7 +61,10 @@ public class CurrencyActivity extends BaseActivity implements CurrencyGeneral.Cu
 
     public void onClick() {
         mImageViewBack.setOnClickListener(view -> MainActivity.getInstance().backActivity(this));
-        mImageViewExchange.setOnClickListener(view -> MainActivity.getInstance().runActivity(this, EXCHANGE,true));
+        mImageViewExchange.setOnClickListener(view -> {
+            MainActivity.getInstance().runActivity(this, EXCHANGE, true);
+            EventBus.getDefault().postSticky(listRates);
+        });
     }
 
     public void save() {
@@ -97,5 +102,8 @@ public class CurrencyActivity extends BaseActivity implements CurrencyGeneral.Cu
     public void getDataCurrency(List<ListRate> objectsList) {
         listRates.addAll(objectsList);
         mCurrencyAdapter.notifyDataSetChanged();
+        if (myListRateSelect.size() == 0) {
+            myListRateSelect.add(objectsList.get(0));
+        }
     }
 }

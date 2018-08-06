@@ -1,10 +1,12 @@
 package com.example.dell.fintechproject.module.view.news_home;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.dell.fintechproject.R;
@@ -97,42 +99,42 @@ public class HomeNews extends BaseActivity implements NewsHomeGeneral.NewsHomeVi
 //        }).start();
 //    }
 //
-//    private class MyTask extends AsyncTask<Integer, Integer, String> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected String doInBackground(Integer... integers) {
-//            new Thread(() -> {
-//                while (i < 31321) {
-//                    handler.postDelayed(() -> {
-//                        i += 1;
-//                        Log.d("AAAAA", String.valueOf(i));
-//                        mTextView.setText(String.valueOf(i));
-//                    }, 5000);
-//                    try {
-//                        Thread.sleep(0, 1);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(Integer... values) {
-//            super.onProgressUpdate(values);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            mTextView.setText(s);
-//
-//        }
-//    }
+    private class MyTask extends AsyncTask<Integer, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Integer... integers) {
+            new Thread(() -> {
+                while (i < 31321) {
+                    handler.postDelayed(() -> {
+                        i += 1;
+                        Log.d("AAAAA", String.valueOf(i));
+                        mTextView.setText(String.valueOf(i));
+                    }, 5000);
+                    try {
+                        Thread.sleep(0, 1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            mTextView.setText(s);
+
+        }
+    }
 
 }

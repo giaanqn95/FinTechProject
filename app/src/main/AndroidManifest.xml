@@ -21,7 +21,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
         <activity android:name=".module.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +44,7 @@
         <activity
             android:name=".module.view.maps.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+        <activity android:name=".module.view.choose_country.ChooseCountryActivity" />
     </application>
 
 </manifest>
